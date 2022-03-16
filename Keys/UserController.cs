@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Keys.Controllers
+namespace Keys
 {
     [Route("api/[controller]")]
     [ApiController]

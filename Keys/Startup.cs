@@ -24,6 +24,13 @@ namespace Keys
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = ApiKeyAuthenticationOptions.DefaultScheme;
+                    options.DefaultChallengeScheme = ApiKeyAuthenticationOptions.DefaultScheme;
+                })
+                .AddApiKeySupport(options => {});
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,14 +50,12 @@ namespace Keys
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }
